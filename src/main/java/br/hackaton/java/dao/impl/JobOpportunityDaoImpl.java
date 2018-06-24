@@ -32,6 +32,18 @@ public class JobOpportunityDaoImpl implements JobOpportunityDao{
 	}
 	
 	@Override
+	public List<JobOpportunity> findByRestaurant(int restaurantId) {
+		
+		String sql = "SELECT * FROM jobopportunity WHERE restaurantId = :restaurantId";
+		
+		try (Connection con = sql2o.open()) {
+			return con.createQuery(sql)
+					.addParameter("restaurantId", restaurantId)
+					.executeAndFetch(JobOpportunity.class);
+		}
+	}
+	
+	@Override
 	public void add(JobOpportunity opportunity) {
 		
 		opportunity.setDateStartannounce(LocalDate.now().toString());
@@ -49,7 +61,9 @@ public class JobOpportunityDaoImpl implements JobOpportunityDao{
 	public void deleteById(int id) {
 		String sql = "DELETE from jobopportunity WHERE id = :id"; 
 		try (Connection con = sql2o.open()) {
-			con.createQuery(sql).addParameter("id", id).executeUpdate();
+			con.createQuery(sql)
+			.addParameter("id", id)
+			.executeUpdate();
 		} catch (Sql2oException ex) {
 			System.out.println(ex);
 		}

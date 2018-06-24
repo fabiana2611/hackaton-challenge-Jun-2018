@@ -47,6 +47,11 @@ static Gson gson;
 		get("/jobopportunity", "application/json", (req, res) -> { 
 			return gson.toJson(jobOpportunityDao.findAll());
 		});
+		
+		get("/jobopportunity/restaurants/:restaurantId", "application/json", (req, res) -> { 
+			int restaurantId = Integer.parseInt(req.params("restaurantId"));
+			return gson.toJson(jobOpportunityDao.findByRestaurant(restaurantId));
+		});
 	}
 	
 	public static void deletes() {

@@ -12,9 +12,11 @@ import br.hackaton.java.entity.JobOpportunity;
  */
 public interface JobOpportunityDao {
 
-	public List<JobOpportunity> findAll();
+	List<JobOpportunity> findAll();
 	
-	public void add(JobOpportunity opportunity);
+	List<JobOpportunity> findByRestaurant(int restaurantId);
+	
+	void add(JobOpportunity opportunity);
 	
 	void deleteById(int id); 
 }
