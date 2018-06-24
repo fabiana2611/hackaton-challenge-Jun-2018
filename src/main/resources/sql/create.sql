@@ -10,3 +10,10 @@ CREATE TABLE IF NOT EXISTS restaurants (
  email VARCHAR
 );
 
+CREATE TABLE IF NOT EXISTS jobopportunity (
+ id INTEGER PRIMARY KEY auto_increment,
+ positionCode INTEGER,
+ restaurantId INTEGER,
+ dateStartannounce VARCHAR
+);
+

@@ -1,6 +1,6 @@
 package br.hackaton.java.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import br.hackaton.java.entity.domain.Position;
 
@@ -18,12 +18,11 @@ public class JobOpportunity {
 	
 	private Integer restaurantId;
 	
-	private Date dateStartannounce;
+	private String dateStartannounce;
 	
-	public JobOpportunity(Integer positionCode, Integer restaurantId, Date dateStartannounce) {
+	public JobOpportunity(Integer positionCode, Integer restaurantId) {
 		this.positionCode = positionCode;
 		this.restaurantId = restaurantId;
-		this.dateStartannounce = dateStartannounce;
 	}
 
 	// --- Getters && Setters ---
@@ -56,12 +55,43 @@ public class JobOpportunity {
 		this.restaurantId = restaurantId;
 	}
 
-	public Date getDateStartannounce() {
+	public String getDateStartannounce() {
 		return dateStartannounce;
 	}
 
-	public void setDateStartannounce(Date dateStartannounce) {
+	public void setDateStartannounce(String dateStartannounce) {
 		this.dateStartannounce = dateStartannounce;
+	}
+	
+	public LocalDate getDateStart() {
+		return LocalDate.parse(dateStartannounce);
+	}
+	
+	// ------ EQUAL AND HASH
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		JobOpportunity review = (JobOpportunity) o;
+
+		if (!positionCode.equals(review.positionCode))
+			return false;
+		if (!restaurantId.equals(review.restaurantId))
+			return false;
+		return dateStartannounce.equals(review.dateStartannounce);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id;
+		result = 31 * result + positionCode.hashCode();
+		result = 31 * result + restaurantId.hashCode();
+		result = 31 * result + dateStartannounce.hashCode();
+		return result;
 	}
 	
 }

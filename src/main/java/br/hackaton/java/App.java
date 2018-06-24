@@ -5,6 +5,7 @@ import org.sql2o.Sql2o;
 
 import com.google.gson.Gson;
 
+import br.hackaton.java.controller.JobOpportunityController;
 import br.hackaton.java.controller.RestaurantController;
 
 public class App {
@@ -18,12 +19,17 @@ public class App {
 		Sql2o sql2o = new Sql2o(connectionString, "", "");
 		
 		RestaurantController.init(gson, sql2o);
+		JobOpportunityController.init(gson, sql2o);
 		
 		conn = sql2o.open();
 		
 		RestaurantController.posts();
 		RestaurantController.gets();
 		RestaurantController.deletes();
+		
+		JobOpportunityController.posts();
+		JobOpportunityController.gets();
+		JobOpportunityController.deletes();
 		
 	}
 }

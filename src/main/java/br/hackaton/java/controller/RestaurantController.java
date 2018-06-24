@@ -12,6 +12,13 @@ import br.hackaton.java.dao.RestaurantDao;
 import br.hackaton.java.dao.impl.RestaurantDaoImpl;
 import br.hackaton.java.entity.Restaurant;
 
+/**
+ * Class to control access of funcionalities
+ *  - Posts, Gets and Deletes
+ * 
+ * @author fabiana.araujo
+ *
+ */
 public class RestaurantController {
 
 	static Gson gson;
@@ -37,15 +44,15 @@ public class RestaurantController {
 	}
 	
 	public static void gets() {
-		get("/restaurants", "application/json", (req, res) -> { // accept a request in format JSON from an app
-			return gson.toJson(restaurantDao.findAll());// send it back to be displayed
+		get("/restaurants", "application/json", (req, res) -> {
+			return gson.toJson(restaurantDao.findAll());
 		});
 	}
 	
 	public static void deletes() {
 		delete("/restaurants/:id", (req, res) -> {
-			int foodtypeId = Integer.parseInt(req.params("id"));
-			restaurantDao.deleteById(foodtypeId);
+			int restaurantId = Integer.parseInt(req.params("id"));
+			restaurantDao.deleteById(restaurantId);
 			return "Restaurant deleted.";
 		});
 	}
