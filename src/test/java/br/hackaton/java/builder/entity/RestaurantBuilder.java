@@ -20,7 +20,6 @@ public class RestaurantBuilder {
 	public static RestaurantBuilder createOne() {
 		RestaurantBuilder builder = new RestaurantBuilder();
 		entity = new Restaurant ("Burguer King", "Street 1", "b@k.com");
-		entity.setId(1);
 		return builder;
 	}
 	

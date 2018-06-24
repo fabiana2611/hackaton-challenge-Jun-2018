@@ -13,12 +13,14 @@ import org.mockito.MockitoAnnotations;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import br.hackaton.java.builder.entity.JobOpportunityBuilder;
 import br.hackaton.java.builder.entity.RestaurantBuilder;
+import br.hackaton.java.entity.JobOpportunity;
 import br.hackaton.java.entity.Restaurant;
 
-public class RestaurantDaoImplTest {
+public class JobOpportunityDaoImplTest {
 	
-	private RestaurantDaoImpl daoService;
+	private JobOpportunityDaoImpl daoService;
 	
 	private Connection conn;
 
@@ -27,7 +29,7 @@ public class RestaurantDaoImplTest {
 		MockitoAnnotations.initMocks(this);
 		String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:sql/create.sql'";
 		Sql2o sql2o = new Sql2o(connectionString, "", "");
-		daoService = new RestaurantDaoImpl(sql2o);
+		daoService = new JobOpportunityDaoImpl(sql2o);
 		conn = sql2o.open();
 	}
 
@@ -40,10 +42,21 @@ public class RestaurantDaoImplTest {
 	@Test
 	public void findAll() {
 		// Create cenario
-		Restaurant newRestaurant = RestaurantBuilder.createOne().now();
-		daoService.add(newRestaurant);
+		JobOpportunity newJobOpportunity = JobOpportunityBuilder.createOne().now();
+		daoService.add(newJobOpportunity);
 		// Execute
-		List<Restaurant> result = daoService.findAll();
+		List<JobOpportunity> result = daoService.findAll();
+		//TEst
+		assertEquals(1, result.size());
+	}
+	
+	@Test
+	public void findByRestaurantId() {
+		// Create cenario
+		JobOpportunity newJobOpportunity = JobOpportunityBuilder.createOne().now();
+		daoService.add(newJobOpportunity);
+		// Execute
+		List<JobOpportunity> result = daoService.findByRestaurant(1);
 		//TEst
 		assertEquals(1, result.size());
 	}
@@ -51,22 +64,22 @@ public class RestaurantDaoImplTest {
 	@Test
 	public void add() {
 		//Cenario
-		Restaurant newRestaurant = RestaurantBuilder.createOne().now();
+		JobOpportunity newJobOpportunity = JobOpportunityBuilder.createOne().now();
 		//Execute
-		daoService.add(newRestaurant);
+		daoService.add(newJobOpportunity);
 		//Test
-		assertNotNull(newRestaurant.getId());
+		assertNotNull(newJobOpportunity.getId());
 	}
 	
 	@Test
 	public void deleteById() {
 		//Cenario
-		Restaurant newRestaurant = RestaurantBuilder.createOne().now();
-		daoService.add(newRestaurant);
+		JobOpportunity newJobOpportunity = JobOpportunityBuilder.createOne().now();
+		daoService.add(newJobOpportunity);
 		//Execute
-		daoService.deleteById(newRestaurant.getId());
+		daoService.deleteById(newJobOpportunity.getId());
 		//Test
-		List<Restaurant> result = daoService.findAll();
+		List<JobOpportunity> result = daoService.findAll();
 		assertTrue(result.isEmpty());
 	}
 	
