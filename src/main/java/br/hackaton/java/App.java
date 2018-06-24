@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import br.hackaton.java.controller.BlackListController;
 import br.hackaton.java.controller.CourierController;
 import br.hackaton.java.controller.JobOpportunityController;
+import br.hackaton.java.controller.OrderController;
 import br.hackaton.java.controller.RestaurantController;
 import br.hackaton.java.controller.UserController;
 
@@ -28,6 +29,7 @@ public class App {
 		UserController.init(gson, sql2o);
 		CourierController.init(gson, sql2o);
 		BlackListController.init(gson, sql2o);
+		OrderController.init(gson, sql2o);
 		
 		conn = sql2o.open();
 		
@@ -50,6 +52,10 @@ public class App {
 		BlackListController.posts();
 		BlackListController.gets();
 		BlackListController.deletes();
+		
+		OrderController.posts();
+		OrderController.gets();
+		OrderController.deletes();
 		
 		after((req, res) -> {
 			res.type("application/json");

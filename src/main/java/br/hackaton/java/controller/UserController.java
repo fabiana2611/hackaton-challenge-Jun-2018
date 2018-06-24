@@ -55,7 +55,7 @@ public class UserController {
 	}
 	
 	public static void deletes() {
-		delete("/usrs/:id", (req, res) -> {
+		delete("/users/:id", (req, res) -> {
 			int userId = Integer.parseInt(req.params("id"));
 			userDao.deleteById(userId);
 			return "User deleted.";
