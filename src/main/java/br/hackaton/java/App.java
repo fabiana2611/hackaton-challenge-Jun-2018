@@ -1,12 +1,17 @@
 package br.hackaton.java;
 
+import static spark.Spark.after;
+
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import com.google.gson.Gson;
 
+import br.hackaton.java.controller.BlackListController;
+import br.hackaton.java.controller.CourierController;
 import br.hackaton.java.controller.JobOpportunityController;
 import br.hackaton.java.controller.RestaurantController;
+import br.hackaton.java.controller.UserController;
 
 public class App {
 
@@ -20,6 +25,9 @@ public class App {
 		
 		RestaurantController.init(gson, sql2o);
 		JobOpportunityController.init(gson, sql2o);
+		UserController.init(gson, sql2o);
+		CourierController.init(gson, sql2o);
+		BlackListController.init(gson, sql2o);
 		
 		conn = sql2o.open();
 		
@@ -31,5 +39,20 @@ public class App {
 		JobOpportunityController.gets();
 		JobOpportunityController.deletes();
 		
+		UserController.posts();
+		UserController.gets();
+		UserController.deletes();
+		
+		CourierController.posts();
+		CourierController.gets();
+		CourierController.deletes();
+		
+		BlackListController.posts();
+		BlackListController.gets();
+		BlackListController.deletes();
+		
+		after((req, res) -> {
+			res.type("application/json");
+		});
 	}
 }

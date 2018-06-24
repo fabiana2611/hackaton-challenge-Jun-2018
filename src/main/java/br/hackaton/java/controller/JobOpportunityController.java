@@ -10,7 +10,10 @@ import com.google.gson.Gson;
 
 import br.hackaton.java.dao.JobOpportunityDao;
 import br.hackaton.java.dao.impl.JobOpportunityDaoImpl;
+import br.hackaton.java.entity.Email;
 import br.hackaton.java.entity.JobOpportunity;
+import br.hackaton.java.service.EmailService;
+import br.hackaton.java.service.impl.EmailServiceImpl;
 
 /**
  * Class to control access of funcionalities
@@ -40,6 +43,14 @@ static Gson gson;
 			jobOpportunityDao.add(jobOpportunity);
 			res.status(201);
 			return gson.toJson(jobOpportunity);
+		});
+		
+		post("/jobopportunity/email", "application/json", (req, res) -> {
+			Email email = gson.fromJson(req.body(), Email.class);
+			EmailService emailservice = new EmailServiceImpl();
+			emailservice.contactUs(email);
+			res.status(201);
+			return gson.toJson(email);
 		});
 	}
 	
